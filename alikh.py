@@ -85,7 +85,14 @@ async def profile(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def main():
-    app = ApplicationBuilder().token(TOKEN).build()
+    proxy_url = "http://proxy.server:3128"
+    app = (
+        ApplicationBuilder()
+        .token(TOKEN)
+        .proxy(proxy_url)
+        .get_updates_proxy(proxy_url)
+        .build()
+    )
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("set", set_param))
     app.add_handler(CommandHandler("profile", profile))
